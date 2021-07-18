@@ -1,12 +1,14 @@
 import 'dart:isolate';
 
+import 'test_class.dart';
+
 void smartIsolate(SendPort isolateToMainStream) {
-    final mainToIsolateStream = ReceivePort();
-    isolateToMainStream.send(mainToIsolateStream.sendPort);
+  final mainToIsolateStream = ReceivePort();
+  isolateToMainStream.send(mainToIsolateStream.sendPort);
 
-    mainToIsolateStream.listen((data) {
-      print('[mainToIsolateStream] $data');
-    });
+  mainToIsolateStream.listen((data) {
+    print('[mainToIsolateStream] $data');
+  });
 
-    isolateToMainStream.send('This is from isolate');
-  }
+  isolateToMainStream.send(TestClass(40));
+}
